@@ -6,6 +6,7 @@ from gitlab import Gitlab
 from logging import getLogger, StreamHandler
 import time
 import pathlib
+from utils import construct_git_url_with_credentials
 
 EXPORT_PATH = pathlib.Path('./tmp')
 
@@ -23,10 +24,6 @@ migrate_strategy = config['default'].get('migrate_strategy')
 os.makedirs(EXPORT_PATH.resolve(), exist_ok=True)
 
 replica_strategy = config['default'].get('replica', 'none')
-
-
-def construct_git_url_with_credentials(project_url: str, username: str, password: str):
-    return f'https://{username}:{password}@{project_url.split("//")[1]}'
 
 
 def main():
